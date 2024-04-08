@@ -1,5 +1,5 @@
 // script.js
-const words = ["JAVASCRIPT", "HTML", "CSS", "PYTHON", "JAVA"]; // Lista de palavras possíveis
+const words = ["JAVASCRIPT", "HTML", "CSS", "PYTHON", "JAVA", "PHP", "SQL", "GIT", "REACT", "ANGULAR"]; // Lista de palavras possíveis
 let selectedWord = ""; // Palavra selecionada
 let guessedLetters = []; // Letras já adivinhadas
 let remainingAttempts = 6; // Número de tentativas restantes
@@ -44,29 +44,36 @@ function checkLose() {
     return remainingAttempts <= 0;
 }
 
+function showNotification(message, type) {
+    const notificationDiv = document.createElement("div");
+    notificationDiv.classList.add("alert", `alert-${type}`, "mt-3");
+    notificationDiv.setAttribute("role", "alert");
+    notificationDiv.textContent = message;
+    document.getElementById("hangman").appendChild(notificationDiv);
+    setTimeout(function() {
+        notificationDiv.remove();
+    }, 3000);
+}
+
 function handleGuess(letter) {
     if (guessedLetters.includes(letter)) {
-        alert("Essa letra já foi adivinhada.");
+        showNotification("Essa letra já foi adivinhada.", "warning");
         return;
     }
 
-    // Adicionar a letra à lista de letras adivinhadas
     guessedLetters.push(letter);
 
-    // Verificar se a letra está na palavra
     if (!selectedWord.includes(letter)) {
         remainingAttempts--;
     }
 
-    // Atualizar a exibição
     updateDisplay();
 
-    // Verificar se o jogo acabou
     if (checkWin()) {
-        alert("Parabéns, você ganhou!");
+        showNotification("Parabéns, você acertou: "  + selectedWord + " ✅", "success");
         init();
     } else if (checkLose()) {
-        alert("Você perdeu. A palavra era: " + selectedWord);
+        showNotification("Você perdeu. A palavra era: " + selectedWord + " ❌", "danger");
         init();
     }
 }
