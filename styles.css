@@ -1,0 +1,22 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#hangman {
+    margin-top: 50px;
+}
+
+#word {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#guessed-letters {
+    margin-bottom: 10px;
+}
+
+#remaining-attempts {
+    font-weight: bold;
+}
